@@ -40,7 +40,8 @@ function App() {
         ) : (
           users.map((user) => {
             // key 保持着列表项的唯一性，目的是保持正确的渲染
-            return <Item key={user.id} name={user.name} />;
+            // 拓展props
+            return <Item key={user.id} {...user} />;
           })
         )}
       </ul>
