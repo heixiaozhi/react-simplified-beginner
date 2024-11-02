@@ -1,0 +1,163 @@
+// 还在以JS的方式写代码
+// 对正则表达式不了解深入
+// 对Hooks还不够熟悉
+
+import { useEffect, useState, useRef } from "react";
+import "./styles.css";
+
+const uppercase = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+const lowercase = [
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+];
+const number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isCheckEmail, setIsCheckEmail] = useState(true);
+  const [isCheckPassword, setIsCheckPassword] = useState(true);
+  const isValid = useRef(false);
+
+  function checkEmail() {
+    return email.endsWith("@webdevsimplified.com");
+  }
+
+  function checkPassword() {
+    if (password.length < 10) return false;
+    // Array.from是浅拷贝 可以将可迭代和类数组变成数组
+    if (!Array.from(password).some((item) => uppercase.includes(item)))
+      return false;
+    if (!Array.from(password).some((item) => lowercase.includes(item)))
+      return false;
+    return Array.from(password).some((item) => number.includes(+item));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const group = document.querySelectorAll(".form-group");
+    group[0].classList.remove("error");
+    group[1].classList.remove("error");
+    if (checkEmail() === false) {
+      setIsCheckEmail(false);
+      group[0].classList.add("error");
+    } else {
+      setIsCheckEmail(true);
+    }
+    if (checkPassword() === false) {
+      setIsCheckPassword(false);
+      group[1].classList.add("error");
+    } else {
+      setIsCheckPassword(true);
+    }
+  }
+
+  useEffect(() => {
+    if (isValid.current && isCheckEmail && isCheckPassword) {
+      console.log("success");
+    }
+    isValid.current = true;
+  }, [isCheckEmail, isCheckPassword]);
+
+  return (
+    <>
+      <form onSubmit={handleSubmit} className="form">
+        {/*error*/}
+        <div className="form-group">
+          <label className="label" htmlFor="email">
+            Email
+          </label>
+          <input
+            className="input"
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <div
+            className="msg"
+            style={{ display: isCheckEmail ? "none" : "block" }}
+          >
+            Must end in @webdevsimplified.com
+          </div>
+        </div>
+        <div className="form-group">
+          <label className="label" htmlFor="password">
+            Password
+          </label>
+          <input
+            className="input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            id="password"
+            required
+          />
+          <div
+            className="msg"
+            style={{ display: isCheckPassword ? "none" : "block" }}
+          >
+            密码必须10个字符以上且包含一个小写一个大写和一个数字
+          </div>
+        </div>
+        <button className="btn" type="submit">
+          Submit
+        </button>
+      </form>
+    </>
+  );
+}
+
+export default App;

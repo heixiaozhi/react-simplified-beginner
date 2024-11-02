@@ -1,0 +1,90 @@
+// 参考kely的答案学来的
+// not bad State
+import { useEffect, useMemo, useState } from "react";
+import "./styles.css";
+import { checkEmail, checkPassword } from "./validate.js";
+
+function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isCheck, setIsCheck] = useState(false);
+
+  const messageEmail = useMemo(() => {
+    return isCheck ? checkEmail(email) : [];
+  }, [isCheck, email]);
+
+  const messagePassword = useMemo(() => {
+    return isCheck ? checkPassword(password) : [];
+  }, [isCheck, password]);
+
+  // 第一问
+  // useEffect(() => {
+  //   setIsCheck(false);
+  // }, [password, email]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setIsCheck(true);
+    if (
+      checkEmail(email).length === 0 &&
+      checkPassword(password).length === 0
+    ) {
+      // 第一问
+      //setIsCheck(false);
+      console.log("success");
+    }
+  }
+
+  return (
+    <>
+      <form onSubmit={handleSubmit} className="form">
+        {/*error*/}
+        <div
+          className={messageEmail.length ? "form-group error" : "form-group"}
+        >
+          <label className="label" htmlFor="email">
+            Email
+          </label>
+          <input
+            className="input"
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <div
+            className="msg"
+            style={{ display: messageEmail.length ? "block" : "none" }}
+          >
+            {messageEmail.join(",")}
+          </div>
+        </div>
+        <div
+          className={messagePassword.length ? "form-group error" : "form-group"}
+        >
+          <label className="label" htmlFor="password">
+            Password
+          </label>
+          <input
+            className="input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            id="password"
+          />
+          <div
+            className="msg"
+            style={{ display: messagePassword.length ? "block" : "none" }}
+          >
+            {messagePassword.join(",")}
+          </div>
+        </div>
+        <button className="btn" type="submit">
+          Submit
+        </button>
+      </form>
+    </>
+  );
+}
+
+export default App;
