@@ -25,6 +25,10 @@ export function TodoItem({ id, name, completed }) {
         </label>
       ) : (
         <>
+          {/*this has one bug
+            当button放label里的时候，点击处理编辑切换回的时候 会执行上面label中的toggleTodo
+            因为 react dom 比较 label没有变，又因为label绑定了input元素，因此事件冒泡会触发toggleTodo
+          */}
           <label className="list-item-label">
             <input type="text" defaultValue={name} ref={inputRef} />
           </label>
