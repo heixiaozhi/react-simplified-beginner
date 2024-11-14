@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./styles.css";
 import { checkEmail, checkPassword } from "./validate.js";
 
-function App() {
+function Root() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isCheck, setIsCheck] = useState(false);
@@ -87,4 +87,4 @@ function App() {
   );
 }
 
-export default App;
+export default Root;

@@ -1,7 +1,7 @@
 # Before Getting Started
 
 The starting code for this project includes all the JSX/logic of using the hook already. The only thing you need to do
-is implement the `useLocalStorage` hook and import it into the `App.jsx` file. Also, the code for the bonus section of
+is implement the `useLocalStorage` hook and import it into the `Root.jsx` file. Also, the code for the bonus section of
 the course is included but just commented out so you can uncomment those lines whenever you tackle the bonus sections.
 
 This project is a step up in difficulty from the last few (especially the bonus sections) so don't worry if this is a
