@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFetch } from "./useFetch.jsx";
 
-// If the API does not work use these local URLs
+// If the api does not work use these local URLs
 // const URLS = {
 //   USERS: "users.json",
 //   POSTS: "posts.json",
