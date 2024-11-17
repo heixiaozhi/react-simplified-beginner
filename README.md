@@ -15,4 +15,5 @@
 + 12x-Advanced-Todo-List2.0
 + 13-Basic-Blog-Project1.0(self)
 + 13x-Basic-Blog-Project2.0
-+ 14-Advanced-Blog-Project
++ 14-Advanced-Blog-Project(self)
++ 14x-Advanced-Blog-Project2.0
